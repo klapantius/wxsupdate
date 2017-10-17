@@ -1,0 +1,18 @@
+Changeset User              Date       Comment
+--------- ----------------- ---------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+494967    Siemens Health... 2017-10-11 created by build process ***NO_CI***  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171011.1
+494683    Varadi, Melind... 2017-10-10 BI: 2500220 - Service Security SITS was not adapted to the deletion of Licensing option: Implementation  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171011.1
+494119    Siemens Health... 2017-10-09 created by build process ***NO_CI***  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171009.2    ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171011.1
+494099    Dasch, Thomas ... 2017-10-09 Update WXS version based on impacted changes  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171009.2
+494093    Tyukodi, Zolta... 2017-10-09 Solution of Defect 2486453 Exception observed while exporting findings from FN,selecting VOI freehand tool,layout selection launching Visual alignment' tool  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171009.2
+494020    Voros, Istvan ... 2017-10-09 Adapt to hotfix database schema changes (Patient indexes)  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171009.1    ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171009.2
+493036    Siemens Health... 2017-10-05 created by build process ***NO_CI***  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171005.1    ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171009.1    ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171009.2
+492879    Lengyel, Laszl... 2017-10-05 Remove extra Clone method  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171005.1
+492735    Siemens Health... 2017-10-04 created by build process ***NO_CI***  ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171004.1    ##BUILDEXTENSION##: Included in Build: Modules.Foundations.PCP.v5.Nightly.Upload.NB_20171005.1
+492685    Dasch, Thomas ... 2017-10-04 Update WXS version based on impacted changes
+492627    Uhlig, Benjami... 2017-10-04 Added BaslineForUpdateValidation.xml + activated check in RuleConfiguration.xml
+492578    Tifinger, Istv... 2017-10-04 Adding IPatientUpdate interface
+491587    Juhasz, Balazs... 2017-09-29 FI merge 2017IT10 [QR1710]: CS 491018 Foundations Version 5.2.1709.2701
+461179    Uhlig, Benjami... 2017-06-23 FI merge 2017IT06 [QR1707]: CS 459698 Foundations Version 5.1.1706.2003
+436027    Lorenz, Marco ... 2017-03-27 FI merge 2017IT03 [QR1704]: CS 435023 Foundations Version 5.0.1703.2202
+433877    Mylka, Martin ... 2017-03-17 Branched from $/syngo.net/Modules/Foundations/Main
