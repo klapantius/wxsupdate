@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Configuration from './Configuration';
 
 export default class ModuleSelector extends Component {
     state = {
         value: null,
     };
 
-    handleChange = (event, index, value) => this.setState({ value });
+    handleChange = (event, index, value) => {
+        this.setState({ value });
+    }
 
     render() {
         return (

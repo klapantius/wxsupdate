@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ModuleSelector from './moduleSelector';
+
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import RaisedButton from 'material-ui/RaisedButton';
+
+
+const muiTheme = getMuiTheme({
+
+});
 
 class App extends Component {
+
   render() {
+    const style = {
+      margin: 12,
+    };
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          {/* <header className="App-header">
+            <h1 className="App-title">under construction</h1>
+          </header> */}
+          <ModuleSelector />
+        </MuiThemeProvider>
       </div>
     );
   }
