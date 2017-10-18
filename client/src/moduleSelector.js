@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Configuration from './Configuration';
+import Configuration from './configuration';
 
 export default class ModuleSelector extends Component {
     state = {
@@ -10,20 +10,16 @@ export default class ModuleSelector extends Component {
 
     handleChange = (event, index, value) => {
         this.setState({ value });
+        fetch(Configuration.api_url).then(function (response) {
+            // console.log(response);
+            return response.blob();
+        }).then(function (myBlob) {
+            // console.log(myBlob);
+        });
     }
 
     render() {
         return (
-            // <SelectField
-            //     floatingLabelText="Ready?"
-            //     value={this.state.value}
-            //     onChange={this.handleChange}
-            // >
-            //     <MenuItem value={null} primaryText="" />
-            //     <MenuItem value={false} primaryText="No" />
-            //     <MenuItem value={true} primaryText="Yes" />
-            // </SelectField>
-
             <SelectField
                 value={this.state.value}
                 onChange={this.handleChange}
