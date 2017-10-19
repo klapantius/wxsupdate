@@ -6,8 +6,10 @@ function tfHistory(req, res) {
             console.error(err);
             return;
         }
-        res.send(stdout);
+        //res.send(stdout);
+        //res.json({ foo: 'bar' })
+        res.json({ 'result': stdout });
     });
 }
 
-module.exports={tfHistory};
+module.exports = { tfHistory };

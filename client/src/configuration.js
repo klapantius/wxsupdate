@@ -1,5 +1,3 @@
-const Configuration = {
-    api_url: 'http://localhost/3011',
-}
+const api_url = 'http://localhost:3011'
 
-module.exports = { Configuration }
+module.exports = { api_url }

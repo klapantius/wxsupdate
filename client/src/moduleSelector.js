@@ -10,12 +10,20 @@ export default class ModuleSelector extends Component {
 
     handleChange = (event, index, value) => {
         this.setState({ value });
-        fetch(Configuration.api_url).then(function (response) {
-            // console.log(response);
-            return response.blob();
-        }).then(function (myBlob) {
-            // console.log(myBlob);
-        });
+        console.log(Configuration.api_url);
+        fetch(`${Configuration.api_url}/tf/history`, { 'mode': 'no-cors' })
+            .then(function (response) {
+                // console.log(response.json());
+                var contentType = response.headers.get("Content-Type");
+                if (contentType && contentType.includes("application/json")) {
+                    return response.json();
+                }
+                throw new TypeError(`Oops, we haven't got JSON! We have got ${contentType}`);
+            })
+            .then(function (json) {
+                console.log(json);
+            })
+            .catch(function (error) { console.log(error); });
     }
 
     render() {
