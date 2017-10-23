@@ -8,7 +8,7 @@ function tfHistory(req, res) {
         }
         //res.send(stdout);
         //res.json({ foo: 'bar' })
-        res.json({ 'result': stdout });
+        res.send({ result: stdout });
     });
 }
 

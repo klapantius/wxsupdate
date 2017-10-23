@@ -11,9 +11,8 @@ export default class ModuleSelector extends Component {
     handleChange = (event, index, value) => {
         this.setState({ value });
         console.log(Configuration.api_url);
-        fetch(`${Configuration.api_url}/tf/history`, { 'mode': 'no-cors' })
+        fetch(`${Configuration.api_url}/tf/history`)
             .then(function (response) {
-                // console.log(response.json());
                 var contentType = response.headers.get("Content-Type");
                 if (contentType && contentType.includes("application/json")) {
                     return response.json();
