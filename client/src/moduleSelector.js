@@ -1,35 +1,17 @@
 import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Configuration from './configuration';
 
 export default class ModuleSelector extends Component {
     state = {
         value: null,
     };
 
-    handleChange = (event, index, value) => {
-        this.setState({ value });
-        console.log(Configuration.api_url);
-        fetch(`${Configuration.api_url}/tf/history`)
-            .then(function (response) {
-                var contentType = response.headers.get("Content-Type");
-                if (contentType && contentType.includes("application/json")) {
-                    return response.json();
-                }
-                throw new TypeError(`Oops, we haven't got JSON! We have got ${contentType}`);
-            })
-            .then(function (json) {
-                console.log(json);
-            })
-            .catch(function (error) { console.log(error); });
-    }
-
     render() {
         return (
             <SelectField
                 value={this.state.value}
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 maxHeight={200}
                 floatingLabelText="Module"
             >
