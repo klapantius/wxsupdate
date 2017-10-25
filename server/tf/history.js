@@ -9,23 +9,19 @@ function tfHistory(req, res) {
         var items = [];
         var lines = stdout.split("\n");
         console.log(`${lines.length} line(s)`);
-        for (var i = 0; i < lines.length; i++) {
+        var width = lines[1].split(" ");
+        for (var i = 2; i < lines.length; i++) {
             var line = lines[i];
-            var cols = /(\d+)\s+(\w+,*\s*\w+)\.*\s+([\d-\.]+)\s+(.*)\s*#/g.exec(line);
-            if (cols && cols.length>1){
-                var item ={
-                    id: cols[1],
-                    submitter: cols[2],
-                    date: cols[3],
-                    comment: cols[4]
-                };
-            
-                items.push(item);
-                console.log(item);
+            var item = {
+                id: line.substr(0, width[0].length).trim(),
+                submitter: line.substr(width[0].length, width[1].length).trim(),
+                date: line.substr(width[0].length + width[1].length, width[2].length).trim(),
+                comment: line.substr(width[0].length + width[1].length + width[2].length, width[3].length).trim(),
             }
+            items.push(item);
         }
         console.log(items.length);
-        res.send({changesets: items});
+        res.send({ changesets: items });
     });
 }
 
