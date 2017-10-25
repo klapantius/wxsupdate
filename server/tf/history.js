@@ -6,9 +6,26 @@ function tfHistory(req, res) {
             console.error(err);
             return;
         }
-        //res.send(stdout);
-        //res.json({ foo: 'bar' })
-        res.send({ result: stdout });
+        var items = [];
+        var lines = stdout.split("\n");
+        console.log(`${lines.length} line(s)`);
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            var cols = /(\d+)\s+(\w+,*\s*\w+)\.*\s+([\d-\.]+)\s+(.*)\s*#/g.exec(line);
+            if (cols && cols.length>1){
+                var item ={
+                    cs: cols[1],
+                    submitter: cols[2],
+                    date: cols[3],
+                    comment: cols[4]
+                };
+            
+                items.push(item);
+                console.log(item);
+            }
+        }
+        console.log(items.length);
+        res.send(JSON.stringify(items));
     });
 }
 
