@@ -14,7 +14,7 @@ function tfHistory(req, res) {
             var cols = /(\d+)\s+(\w+,*\s*\w+)\.*\s+([\d-\.]+)\s+(.*)\s*#/g.exec(line);
             if (cols && cols.length>1){
                 var item ={
-                    cs: cols[1],
+                    id: cols[1],
                     submitter: cols[2],
                     date: cols[3],
                     comment: cols[4]
@@ -25,7 +25,7 @@ function tfHistory(req, res) {
             }
         }
         console.log(items.length);
-        res.send(JSON.stringify(items));
+        res.send({changesets: items});
     });
 }
 
