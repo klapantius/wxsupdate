@@ -14,37 +14,39 @@ const muiTheme = getMuiTheme({
 });
 
 class App extends Component {
+  state = {
+    module: 1,
+    changesets: [],
+  }
   constructor() {
     super();
-    this.state = {
-      module: "",
-      changesets: {}
-    }
-    this.handleModuleChange=this.handleModuleChange(this);
+    this.handleModuleChange = this.handleModuleChange(this);
   }
 
-  handleModuleChange() {
-    fetch(`${Configuration.api_url}/tf/history`)
-    .then(function (response) {
-        var contentType = response.headers.get("Content-Type");
-        if (contentType && contentType.includes("application/json")) {
-            return response.json();
-        }
-        throw new TypeError(`Oops, we haven't got JSON as response to the history query! We have got ${contentType}`);
-    })
-    .then(function (json) {
-        var changesets = json.changesets;
-        console.log(`${changesets.length} changesets received`);
-        console.log(json);
-    })
-    .catch(function (error) { console.log(error); });
-}
+  handleModuleChange(event, index, value) {
+    console.log(`handling module change, requesting history`);
+    this.setState({ module: value });
+    // fetch(`${Configuration.api_url}/tf/history`)
+    //   .then(function (response) {
+    //     var contentType = response.headers.get("Content-Type");
+    //     if (contentType && contentType.includes("application/json")) {
+    //       return response.json();
+    //     }
+    //     throw new TypeError(`Oops, we haven't got JSON as response to the history query! We have got ${contentType}`);
+    //   })
+    //   .then(function (json) {
+    //     var changesets = json.changesets;
+    //     console.log(`${changesets.length} changesets received`);
+    //     console.log(json);
+    //   })
+    //   .catch(function (error) { console.log(error); });
+  }
 
   render() {
     return (
       <div className="App">
         <MuiThemeProvider muiTheme={muiTheme}>
-          <ModuleSelector handleChange={this.handleModuleChange} />
+          <ModuleSelector value={this.state.module} handleChange={this.handleModuleChange} />
         </MuiThemeProvider>
       </div>
     );

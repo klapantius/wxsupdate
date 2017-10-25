@@ -3,14 +3,22 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 export default class ModuleSelector extends Component {
-    state = {
-        value: null,
-    };
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         value: 1,
+    //     };
+    //     this.handleClick = this.handleClick(this);
+    // }
+
+    // handleClick(event, index, newValue) {
+    //     this.setState({ newValue });
+    // }
 
     render() {
         return (
             <SelectField
-                value={this.state.value}
+                value={this.props.value}
                 onChange={this.props.handleChange}
                 maxHeight={200}
                 floatingLabelText="Module"
