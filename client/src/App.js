@@ -15,6 +15,14 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modules: [
+        "Foundations",
+        "Core",
+        "Imaging",
+        "Dicom",
+        "LCO",
+        "Service",
+      ],
       module: 1,
       changesets: [],
     };
@@ -26,7 +34,7 @@ export default class App extends Component {
       .then((response) => {
         var contentType = response.headers.get("Content-Type");
         if (contentType && contentType.includes("application/json")) {
-        return response.json();
+          return response.json();
         }
         throw new TypeError(`Oops, we haven't got JSON as response to the history query! We have got ${contentType}`);
       })
@@ -43,7 +51,11 @@ export default class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
-          <ModuleSelector value={this.state.module} handleChange={(e, i, v) => this.handleModuleChange(e, i, v)} />
+          <ModuleSelector
+            modules={this.state.modules}
+            value={this.state.module}
+            handleChange={(e, i, v) => this.handleModuleChange(e, i, v)}
+          />
           <ChangesetArea changesets={this.state.changesets} />
         </div>
       </MuiThemeProvider>

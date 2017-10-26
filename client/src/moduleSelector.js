@@ -11,10 +11,9 @@ export default class ModuleSelector extends Component {
                 maxHeight={200}
                 floatingLabelText="Module"
             >
-                <MenuItem value={1} primaryText="Foundations" />
-                <MenuItem value={2} primaryText="Core" />
-                <MenuItem value={3} primaryText="CIP" />
-                <MenuItem value={4} primaryText="ITF" />
+                {this.props.modules.map((name, idx) => (
+                    <MenuItem key={idx} value={idx} primaryText={name} />
+                ))}
             </SelectField>
         );
     }
