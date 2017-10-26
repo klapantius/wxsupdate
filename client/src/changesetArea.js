@@ -9,7 +9,11 @@ import {
 } from 'material-ui/Table';
 
 const ChangesetArea = (props) => (
-    <Table multiSelectable = {true} >
+    <Table
+        multiSelectable={true}
+        fixedHeader={true}
+        height={"400px"}
+    >
         <TableHeader>
             <TableRow>
                 <TableHeaderColumn>ID</TableHeaderColumn>

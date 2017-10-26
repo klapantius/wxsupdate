@@ -23,14 +23,15 @@ export default class App extends Component {
         "LCO",
         "Service",
       ],
-      module: 1,
+      module: null,
       changesets: [],
     };
   }
 
   handleModuleChange(event, index, value) {
     var updatedState = Object.assign({}, this.state, { module: value });
-    fetch(`${Configuration.api_url}/tf/history`)
+    console.log(`querying history for ${this.state.modules[value]}`);
+    fetch(`${Configuration.api_url}/tf/history?${this.state.modules[value]}`)
       .then((response) => {
         var contentType = response.headers.get("Content-Type");
         if (contentType && contentType.includes("application/json")) {
