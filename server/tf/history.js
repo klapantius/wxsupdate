@@ -14,9 +14,9 @@ function tfHistory(req, res) {
             var line = lines[i];
             var item = {
                 id: line.substr(0, width[0].length).trim(),
-                submitter: line.substr(width[0].length, width[1].length).trim(),
-                date: line.substr(width[0].length + width[1].length, width[2].length).trim(),
-                comment: line.substr(width[0].length + width[1].length + width[2].length, width[3].length).trim(),
+                submitter: line.substr(width[0].length + 1, width[1].length).trim(),
+                date: line.substr(width[0].length + width[1].length + 2, width[2].length).trim(),
+                comment: line.substr(width[0].length + width[1].length + width[2].length + 3, width[3].length).trim(),
             }
             items.push(item);
         }
