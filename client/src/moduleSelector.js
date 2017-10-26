@@ -3,18 +3,6 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 export default class ModuleSelector extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         value: 1,
-    //     };
-    //     this.handleClick = this.handleClick(this);
-    // }
-
-    // handleClick(event, index, newValue) {
-    //     this.setState({ newValue });
-    // }
-
     render() {
         return (
             <SelectField
