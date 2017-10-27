@@ -31,7 +31,7 @@ export default class App extends Component {
   handleModuleChange(event, index, value) {
     var updatedState = Object.assign({}, this.state, { module: value });
     console.log(`querying history for ${this.state.modules[value]}`);
-    fetch(`${Configuration.api_url}/tf/history?${this.state.modules[value]}`)
+    fetch(`${Configuration.api_url}/tf/history?module=${this.state.modules[value]}`)
       .then((response) => {
         var contentType = response.headers.get("Content-Type");
         if (contentType && contentType.includes("application/json")) {
