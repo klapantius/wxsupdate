@@ -13,6 +13,7 @@ const ChangesetArea = (props) => (
         multiSelectable={true}
         fixedHeader={true}
         height={"400px"}
+        onRowSelection={props.handleSelection}
     >
         <TableHeader>
             <TableRow>
@@ -24,7 +25,7 @@ const ChangesetArea = (props) => (
         </TableHeader>
         <TableBody>
             {props.changesets.map((row, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} selected={props.selectedRows.indexOf(index) !== -1}>
                     <TableRowColumn>{row.id}</TableRowColumn>
                     <TableRowColumn>{row.submitter}</TableRowColumn>
                     <TableRowColumn>{row.date}</TableRowColumn>

@@ -25,6 +25,7 @@ export default class App extends Component {
       ],
       module: null,
       changesets: [],
+      selectedRows: [],
     };
   }
 
@@ -48,6 +49,10 @@ export default class App extends Component {
       .catch((error) => { console.log(error); });
   }
 
+  handleChangesetSelection(selectedRows) {
+    this.setState({selectedRows: selectedRows});
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -57,7 +62,11 @@ export default class App extends Component {
             value={this.state.module}
             handleChange={(e, i, v) => this.handleModuleChange(e, i, v)}
           />
-          <ChangesetArea changesets={this.state.changesets} />
+          <ChangesetArea
+            changesets={this.state.changesets}
+            selectedRows={this.state.selectedRows}
+            handleSelection={(s) => this.handleChangesetSelection(s)}
+          />
         </div>
       </MuiThemeProvider>
     );
