@@ -3,6 +3,7 @@ import './App.css';
 import Configuration from './configuration';
 import ModuleSelector from './moduleSelector';
 import ChangesetArea from './changesetArea';
+import ResultArea from './resultArea';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,21 +17,42 @@ export default class App extends Component {
     super(props);
     this.state = {
       modules: [
-        "Foundations",
-        "Core",
-        "Imaging",
-        "Dicom",
-        "LCO",
-        "Service",
+        "foundations",
+        "foundations\\options\\database",
+        "foundations\\options\\licensing",
+        "aim",
+        "findings",
+        "hl7",
+        "service",
+        "core",
+        "service\\options\\licensing",
+        "workflow",
+        "datastorage",
+        "dicom",
+        "imaging",
+        "lco",
+        "organizer",
+        "cip",
+        "itf",
       ],
       module: null,
       changesets: [],
       selectedRows: [],
+      lastSelectedRows: [],
+      queryDisabled: true,
+      result: "",
     };
   }
 
   handleModuleChange(event, index, value) {
-    var updatedState = Object.assign({}, this.state, { module: value });
+    var updatedState = Object.assign({}, this.state, {
+      module: value,
+      changesets: [],
+      queryDisabled: true,
+      selectedRows: [],
+      result: "waiting for changesets..."
+    });
+    this.setState(updatedState);
     console.log(`querying history for ${this.state.modules[value]}`);
     fetch(`${Configuration.api_url}/tf/history?module=${this.state.modules[value]}`)
       .then((response) => {
@@ -43,17 +65,59 @@ export default class App extends Component {
       .then((json) => {
         var changesets = json.changesets;
         console.log(`${changesets.length} changesets received`);
-        updatedState.changesets = json.changesets;
+        updatedState = Object.assign({}, this.state, {
+          changesets: json.changesets,
+          result: ""
+        });
         this.setState(updatedState);
       })
       .catch((error) => { console.log(error); });
   }
 
   handleChangesetSelection(selectedRows) {
-    this.setState({selectedRows: selectedRows});
+    var last = selectedRows;
+    if (selectedRows.length === 0) last = this.state.selectedRows;
+    console.log(last);
+    this.setState({
+      selectedRows: selectedRows,
+      lastSelectedRows: last,
+      queryDisabled: selectedRows.length < 1
+    });
+  }
+
+  startQuery = () => {
+    var updatedState = Object.assign({}, this.state, {
+      result: "waiting for result...",
+      queryDisabled: true,
+      selectedRows: this.state.lastSelectedRows
+    });
+    this.setState(updatedState);
+    var css = [];
+    for (var i = 0; i < this.state.lastSelectedRows.length; i++) {
+      css.push(this.state.changesets[this.state.lastSelectedRows[i]].id);
+    }
+    var changesets = css.join();
+    fetch(`${Configuration.api_url}/tf/wxsimpact?module=${this.state.modules[this.state.module]}&changesets=${changesets}`)
+      .then((response) => {
+        var contentType = response.headers.get("Content-Type");
+        if (contentType && contentType.includes("application/json")) {
+          return response.json();
+        }
+        throw new TypeError(`Oops, we haven't got JSON as response to the history query! We have got ${contentType}`);
+      })
+      .then((json) => {
+        console.log(json.result);
+        updatedState = Object.assign({}, this.state, {
+          result: json.result,
+          queryDisabled: false
+        });
+        this.setState(updatedState);
+      })
+      .catch((error) => { console.log(error); });
   }
 
   render() {
+    console.log(this.state.result)
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
@@ -66,6 +130,11 @@ export default class App extends Component {
             changesets={this.state.changesets}
             selectedRows={this.state.selectedRows}
             handleSelection={(s) => this.handleChangesetSelection(s)}
+          />
+          <ResultArea
+            disabled={this.queryDisabled}
+            startQuery={() => this.startQuery()}
+            result={this.state.result}
           />
         </div>
       </MuiThemeProvider>
