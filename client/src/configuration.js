@@ -1,3 +1,3 @@
-const api_url = 'http://localhost:3011'
+const api_url = 'http://eh5de01g0020pc:3011'
 
 module.exports = { api_url }
