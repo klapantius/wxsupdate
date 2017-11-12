@@ -13,10 +13,6 @@ app.prepare()
   .then(() => {
     const server = express()
 
-    server.get('/', function (req, res) {
-      res.send('Hello World!')
-    })
-
     server.get('/tf/history', function (req, res) {
       tfHistory(req, res);
     })
