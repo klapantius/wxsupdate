@@ -1,4 +1,6 @@
 package-lock.json
+.next
+
 # Logs
 logs
 *.log
