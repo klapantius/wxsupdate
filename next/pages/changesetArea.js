@@ -17,10 +17,10 @@ const ChangesetArea = (props) => (
     >
         <TableHeader>
             <TableRow>
-                <TableHeaderColumn style={{width: '10%'}}>ID</TableHeaderColumn>
+                <TableHeaderColumn style={{ width: '10%' }}>ID</TableHeaderColumn>
                 <TableHeaderColumn>Submitter</TableHeaderColumn>
-                <TableHeaderColumn style={{width: '10%'}}>Date</TableHeaderColumn>
-                <TableHeaderColumn style={{width: '60%'}}>Comment</TableHeaderColumn>
+                <TableHeaderColumn style={{ width: '10%' }}>Date</TableHeaderColumn>
+                <TableHeaderColumn style={{ width: '60%' }}>Comment</TableHeaderColumn>
             </TableRow>
         </TableHeader>
         <TableBody

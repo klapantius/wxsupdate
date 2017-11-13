@@ -48,7 +48,7 @@ function wxsimpact(req, res) {
                         }
                     }
                     res.send({
-                        result: items.join(),
+                        result: items,
                         error: ""
                     });
                     console.log('done')
