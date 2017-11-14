@@ -38,7 +38,7 @@ export default class App extends Component {
       selectedRows: [],
       lastSelectedRows: [],
       queryDisabled: true,
-      result: "",
+      result: [],
     };
   }
 
@@ -48,7 +48,7 @@ export default class App extends Component {
       changesets: [],
       queryDisabled: true,
       selectedRows: [],
-      result: "waiting for changesets..."
+      result: ["waiting for changesets..."]
     });
     this.setState(updatedState);
     console.log(`querying history for ${this.state.modules[value]}`);
@@ -65,7 +65,7 @@ export default class App extends Component {
         console.log(`${changesets.length} changesets received`);
         updatedState = Object.assign({}, this.state, {
           changesets: json.changesets,
-          result: ""
+          result: []
         });
         this.setState(updatedState);
       })
@@ -75,7 +75,6 @@ export default class App extends Component {
   handleChangesetSelection(selectedRows) {
     var last = selectedRows;
     if (selectedRows.length === 0) last = this.state.selectedRows;
-    console.log(last);
     this.setState({
       selectedRows: selectedRows,
       lastSelectedRows: last,
@@ -85,7 +84,7 @@ export default class App extends Component {
 
   startQuery = () => {
     var updatedState = Object.assign({}, this.state, {
-      result: "waiting for result...",
+      result: ["waiting for result..."],
       queryDisabled: true,
       selectedRows: this.state.lastSelectedRows
     });
@@ -104,9 +103,9 @@ export default class App extends Component {
         throw new TypeError(`Oops, we haven't got JSON as response to the history query! We have got ${contentType}`);
       })
       .then((json) => {
-        console.log(json.result);
+        console.log(`received data as wxs impact: ${json.result}`);
         updatedState = Object.assign({}, this.state, {
-          result: json.result,
+          result: json.result.length > 0 ? json.result : ["no wxs impact detected"],
           queryDisabled: false
         });
         this.setState(updatedState);
