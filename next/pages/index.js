@@ -38,6 +38,7 @@ export default class App extends Component {
       selectedRows: [],
       lastSelectedRows: [],
       queryDisabled: true,
+      progressIndicator: "hidden",
       result: [],
     };
   }
@@ -48,7 +49,8 @@ export default class App extends Component {
       changesets: [],
       queryDisabled: true,
       selectedRows: [],
-      result: ["waiting for changesets..."]
+      result: ["waiting for changesets..."],
+      progressIndicator: "hidden"
     });
     this.setState(updatedState);
     console.log(`querying history for ${this.state.modules[value]}`);
@@ -86,7 +88,8 @@ export default class App extends Component {
     var updatedState = Object.assign({}, this.state, {
       result: ["waiting for result..."],
       queryDisabled: true,
-      selectedRows: this.state.lastSelectedRows
+      selectedRows: this.state.lastSelectedRows,
+      progressIndicator: "visible"
     });
     this.setState(updatedState);
     var css = [];
@@ -106,7 +109,8 @@ export default class App extends Component {
         console.log(`received data as wxs impact: ${json.result}`);
         updatedState = Object.assign({}, this.state, {
           result: json.result.length > 0 ? json.result : ["no wxs impact detected"],
-          queryDisabled: false
+          queryDisabled: false,
+          progressIndicator: "hidden"
         });
         this.setState(updatedState);
       })
@@ -132,6 +136,7 @@ export default class App extends Component {
             disabled={this.queryDisabled}
             startQuery={() => this.startQuery()}
             result={this.state.result}
+            progressIndicator={this.state.progressIndicator}
           />
         </div>
       </MuiThemeProvider>

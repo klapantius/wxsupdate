@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, CardActions, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import LinearProgress from 'material-ui/LinearProgress';
+import { List, ListItem } from 'material-ui/List';
 
 const ResultArea = (props) => (
     <div>
@@ -10,11 +12,12 @@ const ResultArea = (props) => (
             disabled={props.disabled}
             onClick={props.startQuery}
         />
-        {<ul>
+        <LinearProgress style={{ visibility: props.progressIndicator }} mode="indeterminate" />
+        <List>
             {props.result.map((row, index) => (
-                <li>{row}</li>
+                <ListItem>{row}</ListItem>
             ))}
-        </ul>}
+        </List>
     </div>
 )
 
