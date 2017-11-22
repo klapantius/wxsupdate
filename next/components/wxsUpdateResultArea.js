@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import { List, ListItem } from 'material-ui/List';
 
-const ResultArea = (props) => (
+const WxsUpdateResultArea = (props) => (
     <div>
         <RaisedButton
             label="Start"
@@ -21,4 +21,4 @@ const ResultArea = (props) => (
     </div>
 )
 
-export default ResultArea;
+export default WxsUpdateResultArea;
