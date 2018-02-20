@@ -27,8 +27,8 @@ const ChangesetArea = (props) => (
             deselectOnClickaway={false}
             showRowHover={true}
         >
-            {props.changesets.map((row, index) => (
-                <TableRow key={index} selected={props.selectedRows.indexOf(index) !== -1}>
+            {props.changesets.filter(cs => !props.hideAutos || !cs.submitter.startsWith("Siemens Healthineers BuildAccountTpcProject")).map(row => (
+                <TableRow key={row.id} selected={props.selectedRows.indexOf(row.id) !== -1}>
                     <TableRowColumn style={{padding: '1px', width: '8%'}}>{row.id}</TableRowColumn>
                     <TableRowColumn style={{padding: '1px'}}>{row.submitter}</TableRowColumn>
                     <TableRowColumn style={{padding: '1px', width: '15%'}}>{row.date}</TableRowColumn>

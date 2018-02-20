@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ModuleSelector from '../components/moduleSelector';
+import WxsToolbar from '../components/wxsToolbar';
 import ChangesetArea from '../components/changesetArea';
 import WxsUpdateResultArea from '../components/wxsUpdateResultArea';
 
@@ -38,6 +38,7 @@ export default class App extends Component {
       queryDisabled: true,
       progressIndicator: "hidden",
       result: [],
+      hideAutos: false,
     };
   }
 
@@ -73,13 +74,22 @@ export default class App extends Component {
   }
 
   handleChangesetSelection(selectedRows) {
-    var last = selectedRows;
-    if (selectedRows.length === 0) last = this.state.selectedRows;
+    console.log(`selectedRows: ${JSON.stringify(selectedRows)}`)
+    const selectedCS = this.state.changesets[selectedRows[0]].id;
+    let updated = [...this.state.selectedRows];
+    const idx = updated.findIndex(e => e == selectedCS);
+    if (idx >= 0) updated.splice(idx, 1);
+    else updated.push(selectedCS);
+    console.log(`selected: ${selectedCS} updated: ${JSON.stringify(updated)}`);
     this.setState({
-      selectedRows: selectedRows,
-      lastSelectedRows: last,
-      queryDisabled: selectedRows.length < 1
+      selectedRows: updated,
+      queryDisabled: updated.length < 1
     });
+  }
+
+  handleToggleHideAutos(event, isInputChecked) {
+    this.setState({ ...this.state, hideAutos: isInputChecked });
+    console.log(`now ${isInputChecked}`)
   }
 
   startQuery = () => {
@@ -116,19 +126,20 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.result)
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
-          <ModuleSelector
+          <WxsToolbar
             modules={this.state.modules}
             value={this.state.module}
             handleChange={(e, i, v) => this.handleModuleChange(e, i, v)}
+            handleToggleHideAutos={(e, i) => this.handleToggleHideAutos(e, i)}
           />
           <ChangesetArea
             changesets={this.state.changesets}
             selectedRows={this.state.selectedRows}
             handleSelection={(s) => this.handleChangesetSelection(s)}
+            hideAutos={this.state.hideAutos}
           />
           <WxsUpdateResultArea
             disabled={this.queryDisabled}
