@@ -47,7 +47,7 @@ function wxsimpact(req, res) {
                             let countdown = -1;
                             for (var i = 0; i < lines.length; i++) {
                                 console.log(lines[i]);
-                                if (lines[i].startsWith('Summary:')) countdown = 2;
+                                if (lines[i].startsWith('Summary:')) countdown = 3;
                                 if (countdown > 0) countdown--;
                                 if (countdown == 0) {
                                     items.push(lines[i].trim());
