@@ -20,7 +20,7 @@ function tfHistory(req, res) {
         (req, res, stdout) => {
             var x = JSON.parse(stdout);
             var items = [];
-            x.value.filter(cs => !cs.author.displayName.startsWith("Siemens Healthineers BuildAccountTpcProject")).forEach(cs => {
+            x.value.forEach(cs => {
                 items.push({
                     id: cs.changesetId,
                     submitter: cs.author.displayName,
