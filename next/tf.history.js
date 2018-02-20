@@ -8,7 +8,7 @@ const DEFAULT = {
     Branch: "/pcp/v5/",
 }
 
-function tf_history(collection = DEFAULT.Collection, teamProject, modulesPath, moduleName, branch, stopafter = 20) {
+function tf_history(collection = DEFAULT.Collection, teamProject, modulesPath, moduleName, branch, stopafter = 50) {
     var serverPath = buildServerPath(teamProject, modulesPath, moduleName, branch);
     exec(`tf.exe history ${serverPath} /collection:${collection} /noprompt /recursive /stopafter:${stopafter}`,
         (err, stdout, stderr) => {
@@ -64,10 +64,10 @@ function getLatest(localPath, callback) {
         });
 }
 
-function tfHistory(req, res) {
+function tfHistoryOld(req, res) {
     var module = req.query.module;
     console.log(`--- requesting history for '${module}' ---------------------------------------`);
-    exec(`tf.exe history $/syngo.net/modules/${module}/pcp/v5 /collection:https://tfs.healthcare.siemens.com:8090/tfs/IKM.TPC.Projects /noprompt /recursive /stopafter:20`,
+    exec(`tf.exe history $/syngo.net/modules/${module}/pcp/v5 /collection:https://tfs.healthcare.siemens.com:8090/tfs/IKM.TPC.Projects /noprompt /recursive /stopafter:50`,
         (err, stdout, stderr) => {
             if (err) {
                 console.error(err);
@@ -112,5 +112,38 @@ function tfHistory(req, res) {
             res.send({ changesets: items });
         });
 }
+
+function callAPI(req, res, param, callback) {
+    console.log(param);
+    exec(`tfs.restapi.exe "${param}"`,
+        (err, stdout, stderr) => {
+            if (err) {
+                console.error(err);
+                res.send(err);
+                return;
+            }
+            callback(req, res, stdout);
+        });
+}
+
+function tfHistory(req, res) {
+    var module = req.query.module;
+    console.log(`--- requesting history for '${module}' ---------------------------------------`);
+    callAPI(req, res, `tfvc/changesets/?searchCriteria.itemPath=$/syngo.net/Modules/${module}/pcp/v5&$top=100&maxCommentLength=999&api-version=2.0`,
+        (req, res, stdout) => {
+            var x = JSON.parse(stdout);
+            var items = [];
+            x.value.forEach(cs => {
+                items.push({
+                    id: cs.changesetId,
+                    submitter: cs.author.displayName,
+                    date: cs.createdDate,
+                    comment: cs.comment,
+                });
+            });
+            res.send({ changesets: items });
+        });
+}
+
 
 module.exports = { tfHistory, buildServerPath, historyParser, getLatest };
