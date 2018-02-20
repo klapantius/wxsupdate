@@ -1,6 +1,7 @@
 package-lock.json
 .next
 bj.gitcredentials
+*~
 
 # Logs
 logs
