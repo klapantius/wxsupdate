@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-//import { List, ListItem } from 'material-ui/List';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
