@@ -44,19 +44,16 @@ function wxsimpact(req, res) {
                             }
                             var items = [];
                             var lines = stdout.split("\n");
-                            var firstImpact = -1;
-                            var lastImpact = -1;
+                            let countdown = -1;
                             for (var i = 0; i < lines.length; i++) {
                                 console.log(lines[i]);
-                                if (lines[i].startsWith('Affected')) {
-                                    if (firstImpact > 0) lastImpact = i - 1;
-                                    else firstImpact = i + 1;
-                                }
-                                else if (firstImpact > 0 && lastImpact < 0) {
+                                if (lines[i].startsWith('Summary:')) countdown = 2;
+                                if (countdown > 0) countdown--;
+                                if (countdown == 0) {
                                     items.push(lines[i].trim());
                                 }
                             }
-                            res.send({
+                                    res.send({
                                 result: items,
                                 error: ""
                             });
