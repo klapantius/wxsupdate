@@ -74,16 +74,11 @@ export default class App extends Component {
   }
 
   handleChangesetSelection(selectedRows) {
-    console.log(`selectedRows: ${JSON.stringify(selectedRows)}`)
-    const selectedCS = this.state.changesets[selectedRows[0]].id;
-    let updated = [...this.state.selectedRows];
-    const idx = updated.findIndex(e => e == selectedCS);
-    if (idx >= 0) updated.splice(idx, 1);
-    else updated.push(selectedCS);
-    console.log(`selected: ${selectedCS} updated: ${JSON.stringify(updated)}`);
+    const activeCSs = this.state.hideAutos ? this.state.changesets.filter(cs => !cs.submitter.startsWith("Siemens Healthineers BuildAccountTpcProject")) : this.state.changesets;
+    const selectedCSs = selectedRows == "all" ? activeCSs : selectedRows == "none" ? [] : selectedRows.map(r => activeCSs[r].id);
     this.setState({
-      selectedRows: updated,
-      queryDisabled: updated.length < 1
+      selectedRows: selectedCSs,
+      queryDisabled: selectedCSs.length < 1
     });
   }
 
@@ -96,16 +91,10 @@ export default class App extends Component {
     var updatedState = Object.assign({}, this.state, {
       result: ["waiting for result..."],
       queryDisabled: true,
-      selectedRows: this.state.lastSelectedRows,
       progressIndicator: "visible"
     });
     this.setState(updatedState);
-    var css = [];
-    for (var i = 0; i < this.state.lastSelectedRows.length; i++) {
-      css.push(this.state.changesets[this.state.lastSelectedRows[i]].id);
-    }
-    var changesets = css.join();
-    fetch(`/tf/wxsimpact?module=${this.state.modules[this.state.module]}&changesets=${changesets}`)
+    fetch(`/tf/wxsimpact?module=${this.state.modules[this.state.module]}&changesets=${this.state.selectedRows}`)
       .then((response) => {
         var contentType = response.headers.get("Content-Type");
         if (contentType && contentType.includes("application/json")) {
