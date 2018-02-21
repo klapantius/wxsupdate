@@ -15,7 +15,7 @@ const WxsUpdateResultArea = (props) => (
         <LinearProgress style={{ visibility: props.progressIndicator }} mode="indeterminate" />
         <Card>
         {props.result.map((row, index) => (
-                <CardText style={{padding: '1px' }}>{row}</CardText>
+                <CardText key={index} style={{padding: '1px' }}>{row}</CardText>
             ))}
         </Card>
     </div>
